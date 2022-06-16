@@ -16,30 +16,42 @@ static void loc_string_input_text(textile::loc_string &ls)
 	}
 }
 
+static void save_as(document* doc)
+{
+	doc->filepath = dialog_save(doc->filter.data());
+	doc->save();
+}
+
 static void file_menu(document* active_doc)
 {
-	// TODO call active_doc event for listeners
-	// ALSO TODO make a listener for such a thing, should each type of document have a manager which listens for it?
-	// should that be separate from the npc_window code that displays them? (yes)
+	if (active_doc == nullptr) {
+		return;
+	}
+
 	if (ImGui::BeginMenu("File"))
 	{
 		if (ImGui::MenuItem("New")) {
-			dialog_open();
+			active_doc->create_new();
 		}
 		if (ImGui::MenuItem("Open...")) {
 			dialog_open();
 		}
 
-		ImGui::BeginDisabled(active_doc == nullptr);
+		ImGui::BeginDisabled(active_doc->dirty == false);
 
 		if (ImGui::MenuItem("Save")) {
-			dialog_save();
-		}
-		if (ImGui::MenuItem("Save As...")) {
-			dialog_save();
+			if (active_doc->filepath.empty()) {
+				save_as(active_doc);
+			} else {
+				active_doc->save();
+			}
 		}
 
 		ImGui::EndDisabled();
+
+		if (ImGui::MenuItem("Save As...")) {
+			save_as(active_doc);
+		}
 
 		ImGui::EndMenu();
 	}

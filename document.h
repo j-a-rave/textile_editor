@@ -2,15 +2,15 @@
 
 #include <string>
 
-#define EXTENSION_LEN 3
-
 class document {
 public:
 	document() {}
-	virtual ~document() = 0;
+	virtual ~document();
 	virtual bool save() = 0;
+	virtual bool create_new() = 0;
+	virtual bool open() = 0;
 
-	char extension[EXTENSION_LEN];
+	std::string extension;
 	std::wstring filter;
 	std::string filepath;
 	bool dirty;

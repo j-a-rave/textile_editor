@@ -157,6 +157,7 @@
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="app_window.cpp" />
+    <ClCompile Include="document.cpp" />
     <ClCompile Include="file_dialog.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="npc_window.cpp" />
